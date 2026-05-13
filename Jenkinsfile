@@ -5,11 +5,12 @@ pipeline {
         stage('Docker Push') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'DockerHub-mosazhaw', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'DockerHub-lbq16756', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh '''
-                            export DOCKER_HOST=tcp://host.docker.internal:2375
+                            SOCAT_IP=$(docker inspect socat --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}')
+                            export DOCKER_HOST=tcp://${SOCAT_IP}:2375
                             docker login -u $USERNAME -p $PASSWORD
-                            docker push mosazhaw/node-web-app
+                            docker push lbq16756/node-web-app
                         '''
                     }
                 }
