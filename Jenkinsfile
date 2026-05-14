@@ -7,7 +7,7 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'DockerHub-lbq16756', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh '''
-                            export DOCKER_HOST=tcp://172.17.0.3:2375
+                            export DOCKER_HOST=tcp://172.17.0.2:2375
                             docker login -u $USERNAME -p $PASSWORD
                             docker push lbq16756/node-web-app
                         '''
